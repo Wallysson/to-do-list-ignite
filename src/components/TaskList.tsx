@@ -1,12 +1,20 @@
 import styles from './TaskList.module.css'
+import { Circle, Trash } from "phosphor-react";
+import { useState } from 'react';
+
 
 export function TaskList() {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState("");
+
   return (
     <section className={styles.taskSection}>
       <header>
         <input 
           type="text" 
           placeholder="Adicione uma nova tarefa"
+          onChange={(event) => {setNewTask(event.target.value)}}
+          value={newTask}
         />
         <button>
           Criar
@@ -34,6 +42,40 @@ export function TaskList() {
           <div className={styles.taskCounterBox}><span>2 de 5</span></div>
         </div>
       </div>
+      <main className={styles.taskList}>
+        <ul>
+          <li >
+            <input 
+              type="checkbox"
+              readOnly
+            />
+              {/* <Circle size={24} color="#4ea8de" /> */}
+            <span>
+            Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+            </span>
+            <button className={styles.taskDelete}>
+              <Trash 
+                size={24} 
+
+              />
+            </button>
+          </li>
+
+          {/* <li>
+            <Circle size={24} color="#4ea8de" />
+            <span>
+            Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+            </span>
+            <button className={styles.taskDelete}>
+              <Trash 
+                size={24} 
+
+              />
+            </button>
+          </li> */}
+
+        </ul>
+      </main>
     </section>
   )
 }
