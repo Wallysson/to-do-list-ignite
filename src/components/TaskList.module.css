@@ -1,7 +1,6 @@
 .taskSection {
   width: 100%;
   height: 100%;
-  height: 60rem;
   margin-top: -5rem;
 }
 
@@ -48,7 +47,37 @@ header button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 6.4rem;
+  padding: 6.4rem 0 2.4rem;
+}
+
+.taskSectionWithoutList {
+  border-top: 1px solid var(--gray-400);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.taskSectionWithoutList div {
+  padding: 6.4rem 2.4rem;
+  text-align: center;
+}
+
+.taskSectionWithoutList div p {
+  font-weight: 700;
+  color: var(--gray-300);
+  font-size: 1.6rem;
+  line-height: 140%;
+}
+
+.taskSectionWithoutList div p:nth-child(3) {
+  font-weight: 400;
+}
+
+.taskSectionWithoutList div svg {
+  margin-bottom: 1.6rem;
+}
+
+.taskSectionWithoutList div p {
+  width: 100%;
 }
 
 .taskCreate {
@@ -103,16 +132,18 @@ header button:hover {
   padding: 0.2rem 0.8rem;
 }
 
-.taskList {
-  padding-top: 2.4rem;
+.taskList ul div {
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
+  gap: 1.2rem;
+  width: 100%;
 }
 
 .taskList ul {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: 1.2rem;
-  width: 100%;
+  flex-direction: column;
 }
 
 .taskList ul li {
@@ -138,12 +169,17 @@ header button:hover {
   border-radius: 50%;
 }
 
-.taskList ul li p {
+p {
   font-size: 1.4rem;
   line-height: 140%;
-  color: var(--gray-100);
+  color: var(--gray-300);
   line-break: auto;
   width: 80%;
+}
+
+.completed {
+  color: var(--gray-300);
+  text-decoration-line: line-through;
 }
 
 .taskDelete {
@@ -160,3 +196,7 @@ header button:hover {
 .taskDelete svg:hover {
   color: var(--danger);
 }
+
+/* svg.completed {
+  fill: #444;
+} */

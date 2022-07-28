@@ -1,25 +1,29 @@
 import styles from './TaskList.module.css'
-import { Circle, Trash } from "phosphor-react";
-import { useState } from 'react';
+import { Circle, Trash, ClipboardText } from "phosphor-react";
+import { useEffect, useState } from 'react';
 
 
 interface Task {
   id: number;
   title: string;
+  isCompleted: boolean;
 }
 
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
+  const [countTaskCreate, setNewTaskCreate] = useState(0)
+  const [countTaskComplete, setCountTaskComplete] = useState(0)
 
   function handleNewTask() {
     if(!newTask) return alert("Favor preencher uma nova tarefa")
 
     setTasks([...tasks, {
       id: tasks.length + 1,
-      title: newTask
+      title: newTask,
+      isCompleted: false
     }])
-
+    setNewTaskCreate(tasks.length + 1)
     setNewTask('')
   }
 
@@ -27,7 +31,26 @@ export function TaskList() {
     const removeTask = tasks.filter((eraserTasks) => {
       return eraserTasks.id !== id
     })
+    setNewTaskCreate(tasks.length - 1)
     setTasks(removeTask)
+
+  }
+
+  function handleToggleTaskComplete(id: number) {
+    const taskIndex = tasks.findIndex((task) => {
+      return task.id == id
+    })
+
+    const tempTasks = [...tasks]
+    tempTasks[taskIndex].isCompleted = !tempTasks[taskIndex].isCompleted
+
+    setTasks(tempTasks)
+  } 
+
+  function countTasksCompleted() {
+    tasks.filter((task) => {
+      return task.isCompleted === false
+    }).length 
   }
 
   return (
@@ -57,42 +80,51 @@ export function TaskList() {
       <div className={styles.taskSectionCount}>
         <div className={styles.taskCreate}>
           <strong>Tarefas criadas</strong>
-          <div className={styles.taskCounterBox}><span>5</span></div>
+          <div className={styles.taskCounterBox}><span>{countTaskCreate}</span></div>
         </div>
 
         <div className={styles.taskComplete}>
           <strong>Concluídas</strong>
-          <div className={styles.taskCounterBox}><span>2 de 5</span></div>
+          <div className={styles.taskCounterBox}><span>{countTaskComplete} de {countTaskCreate}</span></div>
         </div>
       </div>
-      <main className={styles.taskList}>
-        <ul>
-          {tasks.map((task) => (
-          <li key={task.id}>
-            <>
-            <input 
-              type="checkbox"
-              readOnly
-            />
-            <p>
-              
-              {task.title}
-            </p>
-            <button 
-              className={styles.taskDelete}
-              onClick={() => handleDeleteTask(task.id)}
-            >
-              <Trash 
-                size={24} 
-              />
-            </button>
-            
-            </>
-          </li>
-          ))}
-        </ul>
-      </main>
+      {tasks.length == 0 ? (
+        <div className={styles.taskSectionWithoutList}>
+          <div>
+            <ClipboardText size={56} color="#808080" />
+            <p>Você ainda não tem tarefas cadastradas</p>
+            <p>Crie tarefas e organize seus itens a fazer</p>
+          </div>
+        </div> 
+        ) : (
+        <main className={styles.taskList}>
+          <ul>
+            {tasks.map((task) => (
+              <div className={task.isCompleted ? styles.completed : ''}>
+                <li key={task.id}>
+                  <Circle 
+                    size={24}
+                    color="#4EA8DE"
+                    onClick={() => handleToggleTaskComplete(task.id)}
+                    cursor={"pointer"}
+                  />
+                  <p>
+                    {task.title}
+                  </p>
+                  <button 
+                    className={styles.taskDelete}
+                    onClick={() => handleDeleteTask(task.id)}
+                  >
+                  <Trash 
+                    size={24} 
+                  />
+                  </button>
+                </li>
+              </div>
+            ))}
+          </ul>
+        </main>
+      )}
     </section>
   )
 }
-
