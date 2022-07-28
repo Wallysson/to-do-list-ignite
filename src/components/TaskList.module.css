@@ -68,7 +68,7 @@ header button:hover {
   line-height: 140%;
 }
 
-.taskSectionWithoutList div p:nth-child(3t) {
+.taskSectionWithoutList div p:nth-child(3) {
   font-weight: 400;
 }
 
@@ -169,15 +169,15 @@ header button:hover {
   border-radius: 50%;
 }
 
-p {
+.taskList p {
   font-size: 1.4rem;
   line-height: 140%;
-  color: var(--gray-300);
+  color: var(--gray-100);
   line-break: auto;
   width: 80%;
 }
 
-.completed {
+.completed p {
   color: var(--gray-300);
   text-decoration-line: line-through;
 }
@@ -187,9 +187,7 @@ p {
 }
 
 .taskList ul .completed li .taskCompletedCheck {
-  background: var(--purple);
-  border-radius: 100%;
-  border: none;
+  color: var(--purple);
 }
 
 .taskDelete {

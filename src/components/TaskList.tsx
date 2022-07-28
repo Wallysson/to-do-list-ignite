@@ -1,10 +1,11 @@
 import styles from './TaskList.module.css'
 import { Circle, Trash, ClipboardText } from "phosphor-react";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid'
 
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   isCompleted: boolean;
 }
@@ -19,7 +20,7 @@ export function TaskList() {
     if(!newTask) return alert("Favor preencher uma nova tarefa")
 
     setTasks([...tasks, {
-      id: tasks.length + 1,
+      id: uuidv4(),
       title: newTask,
       isCompleted: false
     }])
@@ -27,7 +28,7 @@ export function TaskList() {
     setNewTask('')
   }
 
-  function handleDeleteTask(id: number) {
+  function handleDeleteTask(id: string) {
     const removeTask = tasks.filter((eraserTasks) => {
       return eraserTasks.id !== id
     })
@@ -36,7 +37,7 @@ export function TaskList() {
     setNewTaskCreate(tasks.length - 1)
   }
 
-  function handleToggleTaskComplete(id: number) {
+  function handleToggleTaskComplete(id: string) {
     const taskIndex = tasks.findIndex((task) => {
       return task.id == id
     })
