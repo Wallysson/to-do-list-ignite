@@ -31,9 +31,9 @@ export function TaskList() {
     const removeTask = tasks.filter((eraserTasks) => {
       return eraserTasks.id !== id
     })
-    setNewTaskCreate(tasks.length - 1)
     setTasks(removeTask)
-
+    countTasksCompleted()
+    setNewTaskCreate(tasks.length - 1)
   }
 
   function handleToggleTaskComplete(id: number) {
@@ -45,12 +45,14 @@ export function TaskList() {
     tempTasks[taskIndex].isCompleted = !tempTasks[taskIndex].isCompleted
 
     setTasks(tempTasks)
+    countTasksCompleted()
   } 
 
   function countTasksCompleted() {
-    tasks.filter((task) => {
-      return task.isCompleted === false
+    const tasksCompleted = tasks.filter((task) => {
+      return task.isCompleted === true
     }).length 
+    setCountTaskComplete(tasksCompleted)
   }
 
   return (
@@ -104,9 +106,10 @@ export function TaskList() {
                 <li key={task.id}>
                   <Circle 
                     size={24}
-                    color="#4EA8DE"
                     onClick={() => handleToggleTaskComplete(task.id)}
                     cursor={"pointer"}
+                    className={styles.taskCompletedCheck}
+
                   />
                   <p>
                     {task.title}
