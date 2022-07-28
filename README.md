@@ -31,6 +31,6 @@ O desafio era reforçar conceitos importante do React JS. Funcionalidades como:
 
   <p align="center">
     <figure>
-      <img src="src/assets/preview.png" width="100%">
+      <img src="./src/assets/preview.png" width="100%">
     </figure>
   </p>
